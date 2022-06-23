@@ -10,6 +10,9 @@ extends Camera3D
 @onready var _velocity = default_velocity
 
 func _input(event):
+	if not current:
+		return
+		
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			rotation.y -= event.relative.x / 1000 * sensitivity
