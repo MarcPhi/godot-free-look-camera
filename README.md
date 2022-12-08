@@ -8,6 +8,7 @@ A simple and easy to use free look camera for Godot 4 that mimics the controls o
 - Move left and right with A and D
 - Move up and down with Q and E 
 - Change movement speed by using the scroll wheel 
+- Temporary increase speed by holding shift
 
 ### Installation:
 - attach "free_look_camera.gd" to your Camera3D node

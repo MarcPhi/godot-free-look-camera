@@ -4,6 +4,7 @@ extends Camera3D
 @export_range(0, 10, 0.01) var sensitivity : float = 3
 @export_range(0, 1000, 0.1) var default_velocity : float = 5
 @export_range(0, 10, 0.01) var speed_scale : float = 1.17
+@export_range(1, 100, 0.1) var boost_speed_multiplier : float = 3.0
 @export var max_speed : float = 1000
 @export var min_speed : float = 0.2
 
@@ -29,10 +30,16 @@ func _input(event):
 				_velocity = clamp(_velocity / speed_scale, min_speed, max_speed)
 
 func _process(delta):
+	if not current:
+		return
+		
 	var direction = Vector3(
 		float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A)),
 		float(Input.is_key_pressed(KEY_E)) - float(Input.is_key_pressed(KEY_Q)), 
 		float(Input.is_key_pressed(KEY_S)) - float(Input.is_key_pressed(KEY_W))
 	).normalized()
 	
-	translate(direction * _velocity * delta)
+	if Input.is_key_pressed(KEY_SHIFT): # boost
+		translate(direction * _velocity * delta * boost_speed_multiplier)
+	else:
+		translate(direction * _velocity * delta)
